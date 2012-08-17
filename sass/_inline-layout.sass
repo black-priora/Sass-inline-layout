@@ -1,0 +1,65 @@
+// susy grid inline layout
+
+// базовый класс
+.table
+	margin: 0
+	display: block
+
+// создаем строку-контейнер
+.table-row
+	+container
+.table-row > div:last-child
+	margin-right: 0
+
+// создаем колонку в строке
+.table-col
+	clear: right
+	padding: 20px 0 15px 0
+
+	// вычислим ширину колонок
+	@for $i from 1 through 10
+		&.m-colspan-#{$i}
+			+span-columns($i, 10)
+			margin-left: 0
+
+	// вложенные колонки
+	// почистим паддинги за собой
+	&.m-nested
+		padding: 0
+
+.table-col > div:last-child
+	margin-right: 0
+
+// псевдообъединенные строки, группы и тп
+// почистим верхний отступ
+.table-row + .table-row,
+.table-group + .table-row,
+.table-row + .table-group,
+	.table-col
+		padding-top: 0
+
+// лейаут без отступов для технической разметки
+.table,
+.table-row
+	&.m-clean
+		.table-col
+			padding: 0
+
+// строки с подсветкой
+.table-row
+	&.m-highlight-row
+		margin-bottom: 15px
+		background-color: violet
+		.table-col
+			padding: 10px 0
+
+// разделитель групп - пунктирная линия
+.table-row .gui-hr-dotted,
+.table-row .gui-hr-double
+	margin: 0 0 20px 0
+
+// разделитель блоков - сплошная линия
+.table-row .gui-hr-solid
+	margin: 0 0 30px 0
+.table-row .gui-hr-double
+	margin-top: 5px
